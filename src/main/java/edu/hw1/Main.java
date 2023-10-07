@@ -12,6 +12,8 @@ public final class Main {
     }
 
     public static void main(String[] args) {
+
+        //дз 1 тест
         // Press Alt+Enter with your caret at the highlighted text to see how
         // IntelliJ IDEA suggests fixing it.
         LOGGER.info("Hello and welcome!");
