@@ -7,6 +7,7 @@ public class Task6 {
     static final int HUNDRED = 100;
     static final int TEN = 10;
     static final int SHIFT = 48;
+
     public int countK(int number) {
         int k = 0;
         int nextNumber = number;
@@ -51,4 +52,5 @@ public class Task6 {
             j--;
         }
     }
+
 }

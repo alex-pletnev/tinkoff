@@ -29,20 +29,20 @@ public class Task8 {
         if (j != 0 && (board[i - 2][j - 1] == 1)) {
             return true;
         }
-        if (j != board[0].length && (board[i - 2][j + 1] == 1)) {
+        if (j != board[0].length - 1 && (board[i - 2][j + 1] == 1)) {
             return true;
         }
         return false;
     }
 
     private boolean goDown(int i, int j, int[][] board) {
-        if (i > board.length - 3) {
+        if (i > board.length - 2 - 1) {
             return false;
         }
         if (j != 0 && (board[i + 2][j - 1] == 1)) {
             return true;
         }
-        if (j != board[0].length && (board[i + 2][j + 1] == 1)) {
+        if (j != board[0].length - 1 && (board[i + 2][j + 1] == 1)) {
             return true;
         }
         return false;
@@ -55,20 +55,20 @@ public class Task8 {
         if (i != 0 && (board[i - 1][j - 2] == 1)) {
             return true;
         }
-        if (i != board.length && (board[i + 1][j - 2] == 1)) {
+        if (i != board.length - 1 && (board[i + 1][j - 2] == 1)) {
             return true;
         }
         return false;
     }
 
     private boolean goRight(int i, int j, int[][] board) {
-        if (j > board[0].length - 3) {
+        if (j > board[0].length - 2 - 1) {
             return false;
         }
         if (i != 0 && (board[i - 1][j + 2] == 1)) {
             return true;
         }
-        if (i != board.length && (board[i + 1][j + 2] == 1)) {
+        if (i != board.length - 1 && (board[i + 1][j + 2] == 1)) {
             return true;
         }
         return false;

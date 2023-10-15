@@ -3,6 +3,7 @@ package edu.hw1;
 public class Task5 {
     static final int SHIFT = 48;
     static final int SMALLEST_TWO_DIGIT = 10;
+
     public boolean isPalindromeDescendant(int number) {
         int descendant = number;
         while (!isPalindrome(descendant)) {
@@ -34,4 +35,5 @@ public class Task5 {
         }
         return Integer.parseInt(descendantString.toString());
     }
+
 }
