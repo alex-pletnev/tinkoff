@@ -3,32 +3,40 @@ package edu.hw1;
 import java.util.Arrays;
 
 public class Task6 {
+    static final int THOUSAND = 1000;
+    static final int HUNDRED = 100;
+    static final int TEN = 10;
+    static final int SHIFT = 48;
     public int countK(int number) {
         int k = 0;
+        int nextNumber = number;
+        final int TARGET = 6174;
         do {
             k++;
-            number = getDescending(number) - getAscending(number);
-        } while (number != 6174);
+            nextNumber = getDescending(nextNumber) - getAscending(nextNumber);
+        } while (nextNumber != TARGET);
         return k;
     }
 
     private int getAscending(int number) {
         char[] chars = String.valueOf(number).toCharArray();
         Arrays.sort(chars);
-        return 1000 * (chars[0] - 48) +
-            100 * (chars[1] - 48) +
-            10 * (chars[2] - 48) +
-            (chars[3] - 48);
+        int i = 0;
+        return THOUSAND * (chars[i++] - SHIFT)
+            + HUNDRED * (chars[i++] - SHIFT)
+            + TEN * (chars[i++] - SHIFT)
+            + (chars[i] - SHIFT);
     }
 
     private int getDescending(int number) {
         char[] chars = String.valueOf(number).toCharArray();
         Arrays.sort(chars);
         reverseArray(chars);
-        return 1000 * (chars[0] - 48) +
-            100 * (chars[1] - 48) +
-            10 * (chars[2] - 48) +
-            (chars[3] - 48);
+        int i = 0;
+        return THOUSAND * (chars[i++] - SHIFT)
+            + HUNDRED * (chars[i++] - SHIFT)
+            + TEN * (chars[i++] - SHIFT)
+            + (chars[i] - SHIFT);
     }
 
     private static void reverseArray(char[] array) {

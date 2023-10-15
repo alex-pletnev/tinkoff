@@ -1,12 +1,14 @@
 package edu.hw1;
 
 public class Task5 {
+    static final int SHIFT = 48;
+    static final int SMALLEST_TWO_DIGIT = 10;
     public boolean isPalindromeDescendant(int number) {
-
-        while (!isPalindrome(number)) {
-            number = getDescendant(number);
+        int descendant = number;
+        while (!isPalindrome(descendant)) {
+            descendant = getDescendant(descendant);
         }
-        return number > 10;
+        return descendant > SMALLEST_TWO_DIGIT;
 
     }
 
@@ -28,7 +30,7 @@ public class Task5 {
                 descendantString.append(charArray[i]);
                 break;
             }
-            descendantString.append((charArray[i] - 48) + (charArray[i + 1] - 48));
+            descendantString.append((charArray[i] - SHIFT) + (charArray[i + 1] - SHIFT));
         }
         return Integer.parseInt(descendantString.toString());
     }
