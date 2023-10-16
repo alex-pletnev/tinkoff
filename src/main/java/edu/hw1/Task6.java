@@ -6,19 +6,22 @@ import java.util.Comparator;
 public class Task6 {
     static final int TARGET = 6174;
     static final int SHIFT = 48;
+    static final int NEXT_NUMBER_ORDER = 10;
+
 
     public int countK(int number) {
         return countKRecursive(number, 0);
     }
 
     private int countKRecursive(int number, int k) {
-        k++;
+        int counter = k;
+        counter++;
         int nextNumber = number;
         nextNumber = getDescending(nextNumber) - getAscending(nextNumber);
         if (nextNumber == TARGET) {
-            return k;
+            return counter;
         }
-        return countKRecursive(nextNumber, k);
+        return countKRecursive(nextNumber, counter);
     }
 
     private int getAscending(int number) {
@@ -28,7 +31,7 @@ public class Task6 {
         Arrays.sort(nums);
         for (int i = nums.length - 1; i >= 0; i--) {
             ascendingNum += nums[i] * multiplier;
-            multiplier *= 10;
+            multiplier *= NEXT_NUMBER_ORDER;
         }
 
         return ascendingNum;
@@ -41,7 +44,7 @@ public class Task6 {
         Arrays.sort(nums, Comparator.reverseOrder());
         for (int i = nums.length - 1; i >= 0; i--) {
             ascendingNum += nums[i] * multiplier;
-            multiplier *= 10;
+            multiplier *= NEXT_NUMBER_ORDER;
         }
 
         return ascendingNum;

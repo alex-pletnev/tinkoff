@@ -3,7 +3,8 @@ package edu.hw1;
 public class Task2 {
     static final int PREVIOUS_NUMBER_ORDER = 10;
 
-    public int countDigits(int num) {
+    public int countDigits(int number) {
+        int num = number;
         int div;
         int digits = 0;
         do {
