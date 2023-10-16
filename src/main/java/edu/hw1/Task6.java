@@ -1,56 +1,59 @@
 package edu.hw1;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class Task6 {
-    static final int THOUSAND = 1000;
-    static final int HUNDRED = 100;
-    static final int TEN = 10;
+    static final int TARGET = 6174;
     static final int SHIFT = 48;
 
     public int countK(int number) {
-        int k = 0;
+        return countKRecursive(number, 0);
+    }
+
+    private int countKRecursive(int number, int k) {
+        k++;
         int nextNumber = number;
-        final int TARGET = 6174;
-        do {
-            k++;
-            nextNumber = getDescending(nextNumber) - getAscending(nextNumber);
-        } while (nextNumber != TARGET);
-        return k;
+        nextNumber = getDescending(nextNumber) - getAscending(nextNumber);
+        if (nextNumber == TARGET) {
+            return k;
+        }
+        return countKRecursive(nextNumber, k);
     }
 
     private int getAscending(int number) {
-        char[] chars = String.valueOf(number).toCharArray();
-        Arrays.sort(chars);
-        int i = 0;
-        return THOUSAND * (chars[i++] - SHIFT)
-            + HUNDRED * (chars[i++] - SHIFT)
-            + TEN * (chars[i++] - SHIFT)
-            + (chars[i] - SHIFT);
+        Integer[] nums = fromIntToIntArray(number);
+        int multiplier = 1;
+        int ascendingNum = 0;
+        Arrays.sort(nums);
+        for (int i = nums.length - 1; i >= 0; i--) {
+            ascendingNum += nums[i] * multiplier;
+            multiplier *= 10;
+        }
+
+        return ascendingNum;
     }
 
     private int getDescending(int number) {
-        char[] chars = String.valueOf(number).toCharArray();
-        Arrays.sort(chars);
-        reverseArray(chars);
-        int i = 0;
-        return THOUSAND * (chars[i++] - SHIFT)
-            + HUNDRED * (chars[i++] - SHIFT)
-            + TEN * (chars[i++] - SHIFT)
-            + (chars[i] - SHIFT);
+        Integer[] nums = fromIntToIntArray(number);
+        int multiplier = 1;
+        int ascendingNum = 0;
+        Arrays.sort(nums, Comparator.reverseOrder());
+        for (int i = nums.length - 1; i >= 0; i--) {
+            ascendingNum += nums[i] * multiplier;
+            multiplier *= 10;
+        }
+
+        return ascendingNum;
     }
 
-    private static void reverseArray(char[] array) {
-        int i = 0;
-        int j = array.length - 1;
-
-        while (i < j) {
-            char temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-            i++;
-            j--;
+    private Integer[] fromIntToIntArray(int number) {
+        char[] chars = String.valueOf(number).toCharArray();
+        Integer[] intArray = new Integer[chars.length];
+        for (int i = 0; i < chars.length; i++) {
+            intArray[i] = chars[i] - SHIFT;
         }
+        return intArray;
     }
 
 }

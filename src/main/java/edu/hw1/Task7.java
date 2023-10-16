@@ -2,6 +2,9 @@ package edu.hw1;
 
 public class Task7 {
     public int rotateLeft(int n, int shift) {
+        if (shift < 0) {
+            return rotateRight(n, Math.abs(shift));
+        }
         char[] bin = Integer.toBinaryString(n).toCharArray();
         for (int i = 0; i < shift; i++) {
             char tmp = bin[0];
@@ -14,6 +17,9 @@ public class Task7 {
     }
 
     public int rotateRight(int n, int shift) {
+        if (shift < 0) {
+            return rotateLeft(n, Math.abs(shift));
+        }
         char[] bin = Integer.toBinaryString(n).toCharArray();
         for (int i = 0; i < shift; i++) {
             char lastChar = bin[bin.length - 1];

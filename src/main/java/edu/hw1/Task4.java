@@ -3,11 +3,9 @@ package edu.hw1;
 public class Task4 {
     String fixString(String string) {
         char[] charArray = string.toCharArray();
-        char tmp;
-        for (int i = 0; i < charArray.length; i += 2) {
-            if (charArray.length % 2 == 1 && i + 1 == charArray.length) {
-                break;
-            }
+        for (int i = 0; i < charArray.length
+            && !(charArray.length % 2 == 1 && i + 1 == charArray.length); i += 2) {
+            char tmp;
             tmp = charArray[i];
             charArray[i] = charArray[i + 1];
             charArray[i + 1] = tmp;

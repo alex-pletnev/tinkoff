@@ -1,12 +1,15 @@
 package edu.hw1;
 
-import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Task0 {
-    private static final Logger LOGGER = LogManager.getLogger();
+    private final Logger logger;
+
+    public Task0(Logger logger) {
+        this.logger = logger;
+    }
 
     public void run() {
-        LOGGER.info("Привет, мир!");
+        logger.info("Привет, мир!");
     }
 }
