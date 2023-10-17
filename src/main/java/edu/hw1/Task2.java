@@ -5,13 +5,11 @@ public class Task2 {
 
     public int countDigits(int number) {
         int num = number;
-        int div;
         int digits = 0;
         do {
-            div = num / PREVIOUS_NUMBER_ORDER;
-            digits++;
             num /= PREVIOUS_NUMBER_ORDER;
-        } while (div != 0);
+            digits++;
+        } while (num != 0);
         return digits;
     }
 }
