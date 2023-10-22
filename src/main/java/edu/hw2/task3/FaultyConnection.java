@@ -18,6 +18,7 @@ public class FaultyConnection implements Connection {
         }
         logger.info(command);
     }
+
     @Override
     public void close() throws Exception {
         logger.info("Connection closed");
