@@ -1,6 +1,6 @@
 package edu.hw2;
 
-import edu.hw2.task4.CallingInfoUtil;
+import edu.hw2.task4.CallingInfoManager;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,7 +12,7 @@ class Task4Test {
         // No arrangement needed as we are testing a static method
 
         // Act
-        CallingInfoUtil.CallingInfo callingInfo = CallingInfoUtil.callingInfo();
+        CallingInfoManager.CallingInfo callingInfo = CallingInfoManager.callingInfo();
 
         // Assert
         assertNotNull(callingInfo);
@@ -25,7 +25,7 @@ class Task4Test {
         // No arrangement needed as we are testing a static method
 
         // Act
-        CallingInfoUtil.CallingInfo callingInfo = CallingInfoUtil.callingInfo();
+        CallingInfoManager.CallingInfo callingInfo = CallingInfoManager.callingInfo();
 
         // Assert
         assertNotNull(callingInfo);

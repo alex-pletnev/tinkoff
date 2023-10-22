@@ -13,6 +13,7 @@ public sealed interface Expr {
             return String.valueOf(value);
         }
     }
+
     public record Negate(Expr expr) implements Expr {
         @Override
         public double evaluate() {
@@ -23,6 +24,7 @@ public sealed interface Expr {
             return "-(" + expr + ")";
         }
     }
+
     public record Exponent(Expr expr, int power) implements Expr {
         @Override
         public double evaluate() {
@@ -33,6 +35,7 @@ public sealed interface Expr {
             return "(" + expr + "^" + power + ")";
         }
     }
+
     public record Addition(Expr expr1, Expr expr2) implements Expr {
         @Override
         public double evaluate() {
@@ -43,6 +46,7 @@ public sealed interface Expr {
             return "(" + expr1 + "+" + expr2 + ")";
         }
     }
+
     public record Multiplication(Expr expr1, Expr expr2) implements Expr {
         @Override
         public double evaluate() {

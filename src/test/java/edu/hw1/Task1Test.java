@@ -1,6 +1,5 @@
 package edu.hw1;
 
-import edu.hw2.task4.CallingInfoUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;

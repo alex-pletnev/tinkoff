@@ -1,6 +1,6 @@
 package edu.hw2.task4;
 
-public class CallingInfoUtil {
+public class CallingInfoManager {
     public static CallingInfo callingInfo() {
         StackTraceElement[] stackTrace = new Throwable().getStackTrace();
         if (stackTrace.length >= 2) {

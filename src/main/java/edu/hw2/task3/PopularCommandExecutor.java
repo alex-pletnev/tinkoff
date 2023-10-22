@@ -26,7 +26,7 @@ public final class PopularCommandExecutor {
             } catch (ConnectionException e) {
                 attempts++;
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             }
         }
         throw new ConnectionException("Failed to execute commands '" + command
