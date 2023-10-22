@@ -8,7 +8,7 @@ public class Session {
     private final int maxAttempts;
     private int attempts = 0;
 
-    public Session(int maxAttempts) throws InvalidWordException{
+    public Session(int maxAttempts) throws InvalidWordException {
         answer = Dictionary.randomWord().toCharArray();
         if (answer.length == 0) {
             throw new InvalidWordException();
@@ -18,7 +18,7 @@ public class Session {
         Arrays.fill(currentAnswer, '*');
     }
 
-    public Session(char[] answer, int maxAttempts) throws InvalidWordException{
+    public Session(char[] answer, int maxAttempts) throws InvalidWordException {
         this.answer = answer;
         if (answer.length == 0) {
             throw new InvalidWordException();
