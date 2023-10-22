@@ -18,6 +18,7 @@ public final class Main {
         // IntelliJ IDEA suggests fixing it.
         LOGGER.info("Hi");
 
+
         // Press Shift+F10 or click the green arrow button in the gutter to run the code.
         for (int i = 0; i <= 2; i++) {
 
