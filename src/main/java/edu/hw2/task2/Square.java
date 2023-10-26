@@ -1,8 +1,8 @@
 package edu.hw2.task2;
 
 public class Square extends Rectangle {
-    public Square(int width, int height) {
-        super(width, height);
+    public Square(int size) {
+        super(size, size);
     }
 
     public Square() {
@@ -13,7 +13,7 @@ public class Square extends Rectangle {
         if (width != getHeight()) {
             return new Rectangle(width, getHeight());
         }
-        return new Square(width, getHeight());
+        return new Square(width);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class Square extends Rectangle {
         if (height != getWidth()) {
             return new Rectangle(getWidth(), height);
         }
-        return new Square(getWidth(), height);
+        return new Square(height);
     }
 }
 

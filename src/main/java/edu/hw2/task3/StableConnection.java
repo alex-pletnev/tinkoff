@@ -7,7 +7,7 @@ public class StableConnection implements Connection {
     private final Logger logger = LogManager.getLogger();
 
     @Override
-    public void execute(String command, Logger logger) {
+    public void execute(String command) {
         logger.info(command);
     }
 

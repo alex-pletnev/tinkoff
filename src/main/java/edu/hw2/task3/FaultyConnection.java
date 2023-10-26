@@ -9,7 +9,7 @@ public class FaultyConnection implements Connection {
     private final Logger logger = LogManager.getLogger();
 
     @Override
-    public void execute(String command, Logger logger) {
+    public void execute(String command) {
         int randomInt;
         Random random = new Random();
         randomInt = random.nextInt(RANDOM_LIMIT);
