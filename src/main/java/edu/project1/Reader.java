@@ -1,11 +1,12 @@
 package edu.project1;
 
+import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Reader {
+public class Reader implements AutoCloseable{
     private final Scanner scanner;
 
     public Reader() {
@@ -17,7 +18,7 @@ public class Reader {
         scanner = new Scanner(file);
     }
 
-    public char readLetter() throws ExitException {
+    public char readLetter(Logger logger) throws ExitException {
         while (true) {
             char[] input = scanner.nextLine().toCharArray();
             if (isExit(input)) {
@@ -25,6 +26,7 @@ public class Reader {
             }
 
             if (input.length != 1 || !Character.isLetter(input[0])) {
+                logger.info("Input must contain 1 letter from a to z");
                 continue;
             }
             return input[0];
@@ -37,4 +39,8 @@ public class Reader {
             || Objects.equals(string, "Exit");
     }
 
+    @Override
+    public void close() throws Exception {
+        scanner.close();
+    }
 }

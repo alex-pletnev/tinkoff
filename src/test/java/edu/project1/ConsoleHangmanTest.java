@@ -22,8 +22,8 @@ class ConsoleHangmanTest {
         Session session = new Session(5);
         Reader reader = new Reader("src/main/resources/pr1data1");
 
-        ConsoleHangman consoleHangman = new ConsoleHangman();
-        boolean result = consoleHangman.run(logger, session, reader);
+        ConsoleHangman consoleHangman = new ConsoleHangman(logger, session, reader);
+        boolean result = consoleHangman.run();
 
         assertFalse(result);
     }
@@ -34,8 +34,8 @@ class ConsoleHangmanTest {
         Session session = new Session(new char[] {'h', 'e', 'l', 'l', 'o'}, 5);
         Reader reader = new Reader("src/main/resources/pr1data2");
 
-        ConsoleHangman consoleHangman = new ConsoleHangman();
-        boolean result = consoleHangman.run(logger, session, reader);
+        ConsoleHangman consoleHangman = new ConsoleHangman(logger, session, reader);
+        boolean result = consoleHangman.run();
 
         assertTrue(result);
     }

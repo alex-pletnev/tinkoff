@@ -10,8 +10,7 @@ public class Dictionary {
 
     public static String randomWord() {
         Random random = new Random();
-        int i = Math.abs(random.nextInt()) % DICTIONARY.length;
+        int i = Math.abs(random.nextInt(DICTIONARY.length));
         return DICTIONARY[i];
     }
-
 }

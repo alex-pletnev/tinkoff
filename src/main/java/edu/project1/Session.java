@@ -1,21 +1,18 @@
 package edu.project1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Session {
     private final char[] answer;
     private final char[] currentAnswer;
     private final int maxAttempts;
+    private final List<Character> mistakeList = new ArrayList<>();
     private int attempts = 0;
 
     public Session(int maxAttempts) throws InvalidWordException {
-        answer = Dictionary.randomWord().toCharArray();
-        if (answer.length == 0) {
-            throw new InvalidWordException();
-        }
-        currentAnswer = new char[answer.length];
-        this.maxAttempts = maxAttempts;
-        Arrays.fill(currentAnswer, '*');
+        this(Dictionary.randomWord().toCharArray(), maxAttempts);
     }
 
     public Session(char[] answer, int maxAttempts) throws InvalidWordException {
@@ -36,8 +33,9 @@ public class Session {
                 isCorrect = true;
             }
         }
-        if (!isCorrect) {
-            attempts++;
+        if (!isCorrect && !mistakeList.contains(letter)) {
+                attempts++;
+                mistakeList.add(letter);
         }
         return isCorrect;
     }

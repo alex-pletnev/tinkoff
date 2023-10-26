@@ -13,9 +13,9 @@ public final class Main {
     }
 
     public static void main(String[] args) {
-        ConsoleHangman consoleHangman = new ConsoleHangman();
         Session session = new Session(MAX_ATTEMPTS);
         Reader reader = new Reader();
-        consoleHangman.run(LOGGER, session, reader);
+        ConsoleHangman consoleHangman = new ConsoleHangman(LOGGER, session, reader);
+        consoleHangman.run();
     }
 }
