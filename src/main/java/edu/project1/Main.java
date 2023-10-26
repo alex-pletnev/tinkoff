@@ -14,8 +14,12 @@ public final class Main {
 
     public static void main(String[] args) {
         Session session = new Session(MAX_ATTEMPTS);
-        Reader reader = new Reader();
-        ConsoleHangman consoleHangman = new ConsoleHangman(LOGGER, session, reader);
-        consoleHangman.run();
+
+        try (Reader reader = new Reader()) {
+            ConsoleHangman consoleHangman = new ConsoleHangman(LOGGER, session, reader);
+            consoleHangman.run();
+        } catch (Exception e) {
+            LOGGER.error("Problem with 'scanner close'", e);
+        }
     }
 }
