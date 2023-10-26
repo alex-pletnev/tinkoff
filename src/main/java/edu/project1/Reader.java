@@ -1,12 +1,12 @@
 package edu.project1;
 
-import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.Scanner;
+import org.apache.logging.log4j.Logger;
 
-public class Reader implements AutoCloseable{
+public class Reader implements AutoCloseable {
     private final Scanner scanner;
 
     public Reader() {

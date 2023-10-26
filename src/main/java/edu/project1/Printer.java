@@ -1,7 +1,6 @@
 package edu.project1;
 
 import org.apache.logging.log4j.Logger;
-import java.util.zip.ZipEntry;
 
 public class Printer {
 
