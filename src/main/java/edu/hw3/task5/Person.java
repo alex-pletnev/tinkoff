@@ -17,6 +17,11 @@ public record Person(String name, String surname) implements Comparable<Person> 
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(name, surname);
+    }
+
+    @Override
     public int compareTo(@NotNull Person o) {
         int tmp = surname.compareTo(o.surname);
         if (tmp == 0) {

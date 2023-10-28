@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Task3Test {
     @Test
-    public void testFreqDict() {
+    void testFreqDict() {
         Task3<String> task3 = new Task3<>();
 
         List<String> stringList1 = Arrays.asList("a", "bb", "a", "bb");
