@@ -3,7 +3,9 @@ package edu.hw4.validate;
 import java.util.Objects;
 
 public abstract class ValidationError {
+
     public abstract int getCode();
+
     public abstract String getFieldName();
 
     @Override

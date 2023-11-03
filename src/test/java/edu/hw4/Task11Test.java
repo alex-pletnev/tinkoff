@@ -11,7 +11,7 @@ class Task11Test {
     void runTest() {
         Task11 task11 = new Task11();
         Animal animal1 = new Animal("Tom", Animal.Type.CAT, Animal.Sex.M, 3, 10, 5, true);
-        Animal animal2 = new Animal("Rex", Animal.Type.DOG, Animal.Sex.M, 5, 15, 200, true);
+        Animal animal2 = new Animal("Rex", Animal.Type.DOG, Animal.Sex.M, 5, 150, 200, true);
         Animal animal3 = new Animal("Nemo", Animal.Type.FISH, Animal.Sex.M, 2, 3, 0, false);
         Animal animal4 = new Animal("Tweety", Animal.Type.BIRD, Animal.Sex.F, 1, 5, 1, false);
         Animal animal5 = new Animal("Charlotte", Animal.Type.SPIDER, Animal.Sex.F, 1, 2, 0, true);
