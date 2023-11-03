@@ -10,7 +10,7 @@ public record Animal(
     boolean bites
 ) {
     private static final int FOUR = 4;
-    private static final int EIGHT = 4;
+    private static final int EIGHT = 8;
 
     enum Type {
         CAT, DOG, BIRD, FISH, SPIDER
