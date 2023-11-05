@@ -8,6 +8,7 @@ public class MazePrinter {
     private static final int TOP_BIT = 4;
     private static final int RIGHT_BIT = 8;
     private static final int BRICK_SIZE = 3;
+    private static final int TEN = 10;
     private final int[][] maze;
     private final String[][] strMaze;
     private final Logger logger;
@@ -60,9 +61,9 @@ public class MazePrinter {
                     strMaze[strI][srtJ + 1] = "██";
                     strMaze[strI - 1][srtJ + 1] = "██";
                 }
-                srtJ -= j * 3;
+                srtJ -= j * BRICK_SIZE;
             }
-            strI -= i * 3;
+            strI -= i * BRICK_SIZE;
 
         }
         return strMaze;
@@ -79,7 +80,7 @@ public class MazePrinter {
         for (int i = 0; i < strMaze.length; i++) {
             StringBuilder row = new StringBuilder();
             if (i % BRICK_SIZE == 1) {
-                if (i / BRICK_SIZE < 10) {
+                if (i / BRICK_SIZE < TEN) {
                     row.append(i / BRICK_SIZE).append("   ");
                 } else {
                     row.append(i / BRICK_SIZE).append("  ");

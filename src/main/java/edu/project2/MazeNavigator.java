@@ -15,6 +15,7 @@ public class MazeNavigator {
     private static final int RIGHT_BIT = 8;
     private static final int X = 0;
     private static final int Y = 1;
+    private static final String NO_ROUTE_FOUND = "No route found!";
     private final int[][] maze;
     private final boolean[][] visited;
     private final Deque<Cell> stack;
@@ -28,8 +29,8 @@ public class MazeNavigator {
     }
 
     public int[][] navigateMaze(int x1, int y1, int x2, int y2) {
-        if (x1 < 0 || x1 >= maze.length || y1 < 0 || y1 >= maze[0].length ||
-            x2 < 0 || x2 >= maze.length || y2 < 0 || y2 >= maze[0].length) {
+        if (x1 < 0 || x1 >= maze.length || y1 < 0 || y1 >= maze[0].length
+            || x2 < 0 || x2 >= maze.length || y2 < 0 || y2 >= maze[0].length) {
             throw new CoordinatesException("Coordinates must be positive!");
         }
 
@@ -55,13 +56,13 @@ public class MazeNavigator {
                 stack.push(chosenCell);
             } else {
                 if (route.isEmpty()) {
-                    throw new RouteException("No route found");
+                    throw new RouteException(NO_ROUTE_FOUND);
                 }
                 route.remove(route.size() - 1);
             }
         }
 
-        throw new RouteException("No route found");
+        throw new RouteException(NO_ROUTE_FOUND);
     }
 
     private void markAsVisited(Cell cell) {
@@ -71,20 +72,20 @@ public class MazeNavigator {
     private List<Cell> getUnvisitedNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
 
-        if (cell.row() > 0 && !visited[cell.row() - 1][cell.col()] &&
-            (maze[cell.row()][cell.col()] & TOP_BIT) == 0) {
+        if (cell.row() > 0 && !visited[cell.row() - 1][cell.col()]
+            && (maze[cell.row()][cell.col()] & TOP_BIT) == 0) {
             neighbours.add(new Cell(cell.row() - 1, cell.col()));
         }
-        if (cell.row() < maze.length - 1 && !visited[cell.row() + 1][cell.col()] &&
-            (maze[cell.row()][cell.col()] & BOTTOM_BIT) == 0) {
+        if (cell.row() < maze.length - 1 && !visited[cell.row() + 1][cell.col()]
+            && (maze[cell.row()][cell.col()] & BOTTOM_BIT) == 0) {
             neighbours.add(new Cell(cell.row() + 1, cell.col()));
         }
-        if (cell.col() > 0 && !visited[cell.row()][cell.col() - 1] &&
-            (maze[cell.row()][cell.col()] & LEFT_BIT) == 0) {
+        if (cell.col() > 0 && !visited[cell.row()][cell.col() - 1]
+            && (maze[cell.row()][cell.col()] & LEFT_BIT) == 0) {
             neighbours.add(new Cell(cell.row(), cell.col() - 1));
         }
-        if (cell.col() < maze[0].length - 1 && !visited[cell.row()][cell.col() + 1] &&
-            (maze[cell.row()][cell.col()] & RIGHT_BIT) == 0) {
+        if (cell.col() < maze[0].length - 1 && !visited[cell.row()][cell.col() + 1]
+            && (maze[cell.row()][cell.col()] & RIGHT_BIT) == 0) {
             neighbours.add(new Cell(cell.row(), cell.col() + 1));
         }
 
