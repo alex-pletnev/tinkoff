@@ -3,14 +3,18 @@ package edu.project2;
 import org.apache.logging.log4j.Logger;
 
 public class MazePrinter {
+    private static final int BOTTOM_BIT = 1;
+    private static final int LEFT_BIT = 2;
+    private static final int TOP_BIT = 4;
+    private static final int RIGHT_BIT = 8;
+    private static final int BRICK_SIZE = 3;
     private final int[][] maze;
     private final String[][] strMaze;
     private final Logger logger;
 
-
     public MazePrinter(int[][] maze, Logger logger) {
         this.maze = maze;
-        this.strMaze = new String[maze.length * 3][maze[0].length * 3];
+        this.strMaze = new String[maze.length * BRICK_SIZE][maze[0].length * BRICK_SIZE];
         this.logger = logger;
     }
 
@@ -31,27 +35,27 @@ public class MazePrinter {
         int strI = 1;
         int srtJ;
         for (int i = 0; i < maze.length; i++) {
-            strI += i * 3;
+            strI += i * BRICK_SIZE;
             srtJ = 1;
             for (int j = 0; j < maze[0].length; j++) {
                 var cell = maze[i][j];
-                srtJ += j * 3;
-                if ((cell & 1) == 1) { // bottom
+                srtJ += j * BRICK_SIZE;
+                if ((cell & BOTTOM_BIT) == BOTTOM_BIT) {
                     strMaze[strI + 1][srtJ - 1] = "██";
                     strMaze[strI + 1][srtJ] = "██";
                     strMaze[strI + 1][srtJ + 1] = "██";
                 }
-                if ((cell & 2) == 2) { // left
+                if ((cell & LEFT_BIT) == LEFT_BIT) {
                     strMaze[strI + 1][srtJ - 1] = "██";
                     strMaze[strI][srtJ - 1] = "██";
                     strMaze[strI - 1][srtJ - 1] = "██";
                 }
-                if ((cell & 4) == 4) { // top
+                if ((cell & TOP_BIT) == TOP_BIT) {
                     strMaze[strI - 1][srtJ - 1] = "██";
                     strMaze[strI - 1][srtJ] = "██";
                     strMaze[strI - 1][srtJ + 1] = "██";
                 }
-                if ((cell & 8) == 8) { // right
+                if ((cell & RIGHT_BIT) == RIGHT_BIT) {
                     strMaze[strI + 1][srtJ + 1] = "██";
                     strMaze[strI][srtJ + 1] = "██";
                     strMaze[strI - 1][srtJ + 1] = "██";
@@ -74,11 +78,11 @@ public class MazePrinter {
         logger.info(yCoords);
         for (int i = 0; i < strMaze.length; i++) {
             StringBuilder row = new StringBuilder();
-            if (i % 3 == 1) {
-                if (i / 3 < 10) {
-                    row.append(i / 3).append("   ");
+            if (i % BRICK_SIZE == 1) {
+                if (i / BRICK_SIZE < 10) {
+                    row.append(i / BRICK_SIZE).append("   ");
                 } else {
-                    row.append(i / 3).append("  ");
+                    row.append(i / BRICK_SIZE).append("  ");
                 }
 
             } else {
@@ -94,10 +98,10 @@ public class MazePrinter {
 
     public void addPath(int[][] path) {
         for (int[] cords : path) {
-            strMaze[cords[0] * 3 + 1][cords[1] * 3 + 1] = "##";
+            strMaze[cords[0] * BRICK_SIZE + 1][cords[1] * BRICK_SIZE + 1] = "##";
         }
-        strMaze[path[0][0] * 3 + 1][path[0][1] * 3 + 1] = "AA";
-        strMaze[path[path.length - 1][0] * 3 + 1][path[path.length - 1][1] * 3 + 1] = "BB";
+        strMaze[path[0][0] * BRICK_SIZE + 1][path[0][1] * BRICK_SIZE + 1] = "AA";
+        strMaze[path[path.length - 1][0] * BRICK_SIZE + 1][path[path.length - 1][1] * BRICK_SIZE + 1] = "BB";
     }
 
 

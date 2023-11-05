@@ -2,20 +2,28 @@ package edu.project2;
 
 import edu.project2.exceptions.CoordinatesException;
 import edu.project2.exceptions.RouteException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
+import java.util.Random;
 
 public class MazeNavigator {
+    private static final int BOTTOM_BIT = 1;
+    private static final int LEFT_BIT = 2;
+    private static final int TOP_BIT = 4;
+    private static final int RIGHT_BIT = 8;
+    private static final int X = 0;
+    private static final int Y = 1;
     private final int[][] maze;
     private final boolean[][] visited;
-    private final Stack<Cell> stack;
+    private final Deque<Cell> stack;
     private final List<Cell> route;
 
     public MazeNavigator(int[][] maze) {
         this.maze = maze;
         this.visited = new boolean[maze.length][maze[0].length];
-        this.stack = new Stack<>();
+        this.stack = new ArrayDeque<>();
         this.route = new ArrayList<>();
     }
 
@@ -32,7 +40,7 @@ public class MazeNavigator {
         while (!stack.isEmpty()) {
             Cell currentCell = stack.pop();
 
-            if (currentCell.getRow() == x2 && currentCell.getCol() == y2) {
+            if (currentCell.row() == x2 && currentCell.col() == y2) {
                 route.add(currentCell);
                 return convertRouteToArray();
             }
@@ -57,38 +65,43 @@ public class MazeNavigator {
     }
 
     private void markAsVisited(Cell cell) {
-        visited[cell.getRow()][cell.getCol()] = true;
+        visited[cell.row()][cell.col()] = true;
     }
 
     private List<Cell> getUnvisitedNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
 
-        if (cell.getRow() > 0 && !visited[cell.getRow() - 1][cell.getCol()] && (maze[cell.getRow()][cell.getCol()] & 4) == 0) {
-            neighbours.add(new Cell(cell.getRow() - 1, cell.getCol()));
+        if (cell.row() > 0 && !visited[cell.row() - 1][cell.col()] &&
+            (maze[cell.row()][cell.col()] & TOP_BIT) == 0) {
+            neighbours.add(new Cell(cell.row() - 1, cell.col()));
         }
-        if (cell.getRow() < maze.length - 1 && !visited[cell.getRow() + 1][cell.getCol()] && (maze[cell.getRow()][cell.getCol()] & 1) == 0) {
-            neighbours.add(new Cell(cell.getRow() + 1, cell.getCol()));
+        if (cell.row() < maze.length - 1 && !visited[cell.row() + 1][cell.col()] &&
+            (maze[cell.row()][cell.col()] & BOTTOM_BIT) == 0) {
+            neighbours.add(new Cell(cell.row() + 1, cell.col()));
         }
-        if (cell.getCol() > 0 && !visited[cell.getRow()][cell.getCol() - 1] && (maze[cell.getRow()][cell.getCol()] & 2) == 0) {
-            neighbours.add(new Cell(cell.getRow(), cell.getCol() - 1));
+        if (cell.col() > 0 && !visited[cell.row()][cell.col() - 1] &&
+            (maze[cell.row()][cell.col()] & LEFT_BIT) == 0) {
+            neighbours.add(new Cell(cell.row(), cell.col() - 1));
         }
-        if (cell.getCol() < maze[0].length - 1 && !visited[cell.getRow()][cell.getCol() + 1] && (maze[cell.getRow()][cell.getCol()] & 8) == 0) {
-            neighbours.add(new Cell(cell.getRow(), cell.getCol() + 1));
+        if (cell.col() < maze[0].length - 1 && !visited[cell.row()][cell.col() + 1] &&
+            (maze[cell.row()][cell.col()] & RIGHT_BIT) == 0) {
+            neighbours.add(new Cell(cell.row(), cell.col() + 1));
         }
 
         return neighbours;
     }
 
     private Cell chooseRandomNeighbour(List<Cell> neighbours) {
-        int index = (int) (Math.random() * neighbours.size());
+        Random random = new Random();
+        int index = random.nextInt(neighbours.size());
         return neighbours.get(index);
     }
 
     private int[][] convertRouteToArray() {
         int[][] routeArray = new int[route.size()][2];
         for (int i = 0; i < route.size(); i++) {
-            routeArray[i][0] = route.get(i).getRow(); //x
-            routeArray[i][1] = route.get(i).getCol(); //y
+            routeArray[i][X] = route.get(i).row();
+            routeArray[i][Y] = route.get(i).col();
         }
         return routeArray;
     }

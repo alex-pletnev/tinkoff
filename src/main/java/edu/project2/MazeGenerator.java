@@ -1,17 +1,23 @@
 package edu.project2;
 
 import edu.project2.exceptions.CoordinatesException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 import java.util.Random;
-import java.util.Stack;
 
 public class MazeGenerator {
+
+    private static final int BOTTOM_BIT = 1;
+    private static final int LEFT_BIT = 2;
+    private static final int TOP_BIT = 4;
+    private static final int RIGHT_BIT = 8;
     private final int rows;
     private final int cols;
     private final int[][] maze;
     private final boolean[][] visited;
-    private final Stack<Cell> stack;
+    private final Deque<Cell> stack;
 
     public MazeGenerator(int rows, int cols) {
 
@@ -22,7 +28,7 @@ public class MazeGenerator {
         this.cols = cols;
         this.maze = new int[rows][cols];
         this.visited = new boolean[rows][cols];
-        this.stack = new Stack<>();
+        this.stack = new ArrayDeque<>();
     }
 
     private void initMaze() {
@@ -58,23 +64,23 @@ public class MazeGenerator {
     }
 
     private void markAsVisited(Cell cell) {
-        visited[cell.getRow()][cell.getCol()] = true;
+        visited[cell.row()][cell.col()] = true;
     }
 
     private List<Cell> getUnvisitedNeighbours(Cell cell) {
         List<Cell> neighbours = new ArrayList<>();
 
-        if (cell.getRow() > 0 && !visited[cell.getRow() - 1][cell.getCol()]) {
-            neighbours.add(new Cell(cell.getRow() - 1, cell.getCol()));
+        if (cell.row() > 0 && !visited[cell.row() - 1][cell.col()]) {
+            neighbours.add(new Cell(cell.row() - 1, cell.col()));
         }
-        if (cell.getRow() < rows - 1 && !visited[cell.getRow() + 1][cell.getCol()]) {
-            neighbours.add(new Cell(cell.getRow() + 1, cell.getCol()));
+        if (cell.row() < rows - 1 && !visited[cell.row() + 1][cell.col()]) {
+            neighbours.add(new Cell(cell.row() + 1, cell.col()));
         }
-        if (cell.getCol() > 0 && !visited[cell.getRow()][cell.getCol() - 1]) {
-            neighbours.add(new Cell(cell.getRow(), cell.getCol() - 1));
+        if (cell.col() > 0 && !visited[cell.row()][cell.col() - 1]) {
+            neighbours.add(new Cell(cell.row(), cell.col() - 1));
         }
-        if (cell.getCol() < cols - 1 && !visited[cell.getRow()][cell.getCol() + 1]) {
-            neighbours.add(new Cell(cell.getRow(), cell.getCol() + 1));
+        if (cell.col() < cols - 1 && !visited[cell.row()][cell.col() + 1]) {
+            neighbours.add(new Cell(cell.row(), cell.col() + 1));
         }
 
         return neighbours;
@@ -87,23 +93,23 @@ public class MazeGenerator {
     }
 
     private void removeWall(Cell cell1, Cell cell2) {
-        int rowDiff = cell2.getRow() - cell1.getRow();
-        int colDiff = cell2.getCol() - cell1.getCol();
+        int rowDiff = cell2.row() - cell1.row();
+        int colDiff = cell2.col() - cell1.col();
 
         //bottom left top right
 
         if (rowDiff == -1) {
-            maze[cell1.getRow()][cell1.getCol()] &= ~4;
-            maze[cell2.getRow()][cell2.getCol()] &= ~1;
+            maze[cell1.row()][cell1.col()] &= ~TOP_BIT;
+            maze[cell2.row()][cell2.col()] &= ~BOTTOM_BIT;
         } else if (rowDiff == 1) {
-            maze[cell1.getRow()][cell1.getCol()] &= ~1;
-            maze[cell2.getRow()][cell2.getCol()] &= ~4;
+            maze[cell1.row()][cell1.col()] &= ~BOTTOM_BIT;
+            maze[cell2.row()][cell2.col()] &= ~TOP_BIT;
         } else if (colDiff == -1) {
-            maze[cell1.getRow()][cell1.getCol()] &= ~2;
-            maze[cell2.getRow()][cell2.getCol()] &= ~8;
+            maze[cell1.row()][cell1.col()] &= ~LEFT_BIT;
+            maze[cell2.row()][cell2.col()] &= ~RIGHT_BIT;
         } else if (colDiff == 1) {
-            maze[cell1.getRow()][cell1.getCol()] &= ~8;
-            maze[cell2.getRow()][cell2.getCol()] &= ~2;
+            maze[cell1.row()][cell1.col()] &= ~RIGHT_BIT;
+            maze[cell2.row()][cell2.col()] &= ~LEFT_BIT;
         }
     }
 }
