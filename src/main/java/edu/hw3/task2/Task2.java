@@ -1,43 +1,33 @@
 package edu.hw3.task2;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 public class Task2 {
-    private String tmpCluster;
 
     public String[] clusterize(String string) {
-        int index = 0;
         List<String> clusters = new ArrayList<>();
-        while (index < string.length()) {
-            tmpCluster = "";
-            String newCluster = findCluster(string.toCharArray(), index);
-            clusters.add(newCluster);
-            index += newCluster.length();
-        }
-        return clusters.toArray(new String[0]);
-    }
-
-    private String findCluster(char[] chars, int index) {
-        int i = index;
-        if (i >= chars.length || (chars[i] != '(' && chars[i] != ')')) {
-            throw new UnclusterizedStringException();
-        }
-        tmpCluster += chars[i];
-        if (countChars(tmpCluster, '(') == countChars(tmpCluster, ')')) {
-            return tmpCluster;
-        }
-        return findCluster(chars, ++i);
-    }
-
-    private int countChars(String string, char c) {
-        char[] chars = string.toCharArray();
-        int count = 0;
-        for (char i : chars) {
-            if (c == i) {
-                count++;
+        Deque<Integer> stack = new ArrayDeque<>();
+        for (int i = 0; i < string.length(); i++) {
+            if (string.charAt(i) == '(') {
+                stack.push(i);
+            } else if (string.charAt(i) == ')') {
+                if (stack.isEmpty()) {
+                    throw new UnclusterizedStringException();
+                }
+                int clusterStartIndex = stack.pop();
+                if (stack.isEmpty()) {
+                    clusters.add(string.substring(clusterStartIndex, i + 1));
+                }
+            } else {
+                throw new UnclusterizedStringException();
             }
         }
-        return count;
+        if (!stack.isEmpty()) {
+            throw new UnclusterizedStringException();
+        }
+        return clusters.toArray(new String[0]);
     }
 }

@@ -22,6 +22,15 @@ class Task5Test {
         Assertions.assertThat(result).isEqualTo(excepted);
     }
 
+    @ParameterizedTest
+    @MethodSource("sameSurnamePersonsLists")
+    void parseContactsSameSurnameTest(List<Person> personList, String mode, List<Person> excepted) {
+        Task5 task5 = new Task5();
+        var result = task5.parseContacts(personList, mode);
+
+        Assertions.assertThat(result).isEqualTo(excepted);
+    }
+
     @Test
     void parseContactsEmptyTest() {
         List<Person> personList = new ArrayList<>();
@@ -42,6 +51,26 @@ class Task5Test {
 
         Task5 task5 = new Task5();
         var result = task5.parseContacts(personList, mode);
+
+        Assertions.assertThat(result).isEqualTo(excepted);
+    }
+
+    @Test
+    void parseContactsNoSurnameTest() {
+        ArrayList<Person> personList = new ArrayList<>();
+        personList.add(new Person("John", ""));
+        personList.add(new Person("Thomas", ""));
+        personList.add(new Person("David", ""));
+        personList.add(new Person("Rene", ""));
+
+        ArrayList<Person> excepted = new ArrayList<>();
+        excepted.add(new Person("David", ""));
+        excepted.add(new Person("John", ""));
+        excepted.add(new Person("Rene", ""));
+        excepted.add(new Person("Thomas", ""));
+
+        Task5 task5 = new Task5();
+        var result = task5.parseContacts(personList, "ASC");
 
         Assertions.assertThat(result).isEqualTo(excepted);
     }
@@ -68,6 +97,35 @@ class Task5Test {
         list2Excepted.add(new Person("Carl", "Gauss"));
         list2Excepted.add(new Person("Leonhard", "Euler"));
         list2Excepted.add(new Person("Paul", "Erdos"));
+
+        return Stream.of(
+            Arguments.of(list1, "ASC", list1Excepted),
+            Arguments.of(list2, "DESC", list2Excepted)
+        );
+    }
+
+    private static Stream<Arguments> sameSurnamePersonsLists() {
+        ArrayList<Person> list1 = new ArrayList<>();
+        list1.add(new Person("John", "Locke"));
+        list1.add(new Person("Thomas", "Locke"));
+        list1.add(new Person("David", "Locke"));
+        list1.add(new Person("Rene", "Locke"));
+
+        ArrayList<Person> list1Excepted = new ArrayList<>();
+        list1Excepted.add(new Person("David", "Locke"));
+        list1Excepted.add(new Person("John", "Locke"));
+        list1Excepted.add(new Person("Rene", "Locke"));
+        list1Excepted.add(new Person("Thomas", "Locke"));
+
+        ArrayList<Person> list2 = new ArrayList<>();
+        list2.add(new Person("Carl", "Erdos"));
+        list2.add(new Person("Paul", "Erdos"));
+        list2.add(new Person("Cerl", "Erdos"));
+
+        ArrayList<Person> list2Excepted = new ArrayList<>();
+        list2Excepted.add(new Person("Paul", "Erdos"));
+        list2Excepted.add(new Person("Cerl", "Erdos"));
+        list2Excepted.add(new Person("Carl", "Erdos"));
 
         return Stream.of(
             Arguments.of(list1, "ASC", list1Excepted),

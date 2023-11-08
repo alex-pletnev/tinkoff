@@ -7,16 +7,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class Task3<T> {
 
-    public Map<T, Integer> freqDict(@NotNull List<T> stringList) {
+    public Map<T, Integer> freqDict(@NotNull List<T> list) {
         Map<T, Integer> freqDict = new HashMap<>();
-        for (T key : stringList) {
-            if (freqDict.containsKey(key)) {
-                var value = freqDict.get(key);
-                freqDict.put(key, ++value);
-            } else {
-                freqDict.put(key, 1);
-            }
-        }
+        list.forEach(
+            el -> freqDict.merge(el, 1, Integer::sum)
+        );
         return freqDict;
     }
 }
