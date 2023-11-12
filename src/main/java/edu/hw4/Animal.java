@@ -9,6 +9,8 @@ public record Animal(
     int weight,
     boolean bites
 ) {
+    private static final int ZERO = 0;
+    private static final int TWO = 2;
     private static final int FOUR = 4;
     private static final int EIGHT = 8;
 
@@ -23,8 +25,8 @@ public record Animal(
     public int paws() {
         return switch (type) {
             case CAT, DOG -> FOUR;
-            case BIRD -> 2;
-            case FISH -> 0;
+            case BIRD -> TWO;
+            case FISH -> ZERO;
             case SPIDER -> EIGHT;
         };
     }
