@@ -19,21 +19,21 @@ class FiltersTest {
     @Test
     void trueFiltersTest() throws IOException {
         Files.writeString(path, "Hello, world!");
-        var filter = Filters.GLOB_MATCHES(".*\\.tmp")
-            .and(Filters.FILE_EXTENSIONS("tmp"))
-            .and(Filters.LARGER_THEN(1));
+        var filter = Filters.globMatches(".*\\.tmp")
+            .and(Filters.fileExtensions("tmp"))
+            .and(Filters.largerThen(1));
         var actual = filter.accept(path);
         Assertions.assertTrue(actual);
     }
 
     @Test
     void falseFiltersTest() throws IOException {
-        var filter = Filters.READABLE
-            .and(Filters.WRITABLE)
-            .and(Filters.REGULAR)
-            .and(Filters.LARGER_THEN(100))
-            .and(Filters.FILE_EXTENSIONS("tmp"))
-            .and(Filters.MAGIC_NUMBER((char) 0x89, 'P', 'N', 'G'));
+        var filter = Filters.readable
+            .and(Filters.writable)
+            .and(Filters.regular)
+            .and(Filters.largerThen(100))
+            .and(Filters.fileExtensions("tmp"))
+            .and(Filters.magicNumber((char) 0x89, 'P', 'N', 'G'));
         var actual = filter.accept(path);
         Assertions.assertFalse(actual);
     }

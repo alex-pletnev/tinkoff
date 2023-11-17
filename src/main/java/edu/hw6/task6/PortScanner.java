@@ -34,11 +34,12 @@ public class PortScanner {
     }
 
     public static void printPortsInfo() {
+        var linePattern = "{}\t{}\t{}";
         scanTcpPorts();
         scanUdpPorts();
-        LOGGER.info("{}\t{}\t{}", "Протокол", "Порт", "Сервис");
+        LOGGER.info(linePattern, "Протокол", "Порт", "Сервис");
         for (var portInfo : PORT_INFO_SET) {
-            LOGGER.info("{}\t{}\t{}", portInfo.protocol(), portInfo.port(), portInfo.description());
+            LOGGER.info(linePattern, portInfo.protocol(), portInfo.port(), portInfo.description());
         }
     }
 
@@ -76,6 +77,8 @@ public class PortScanner {
                     switch (splitLine[1]) {
                         case (TCP) -> TSP_PORTS.put(Integer.parseInt(splitLine[0]), splitLine[splitLine.length - 1]);
                         case (UDP) -> UDP_PORTS.put(Integer.parseInt(splitLine[0]), splitLine[splitLine.length - 1]);
+                        default -> {
+                        }
                     }
                 }
             }

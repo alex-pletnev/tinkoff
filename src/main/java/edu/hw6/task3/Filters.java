@@ -8,28 +8,28 @@ public class Filters {
     private Filters() {
     }
 
-    public static AbstractFilter READABLE = Files::isReadable;
+    public static AbstractFilter readable = Files::isReadable;
 
-    public static AbstractFilter WRITABLE = Files::isWritable;
+    public static AbstractFilter writable = Files::isWritable;
 
-    public static AbstractFilter REGULAR = Files::isRegularFile;
+    public static AbstractFilter regular = Files::isRegularFile;
 
-    public static AbstractFilter LARGER_THEN(int size) {
+    public static AbstractFilter largerThen(int size) {
         return entry -> Files.size(entry) > size;
     }
 
-    public static AbstractFilter FILE_EXTENSIONS(String goalExtensions) {
+    public static AbstractFilter fileExtensions(String goalExtensions) {
         return entry -> {
             var actualExtensions = entry.getFileName().toString().split("\\.")[1];
             return goalExtensions.equals(actualExtensions);
         };
     }
 
-    public static AbstractFilter GLOB_MATCHES(String regex) {
+    public static AbstractFilter globMatches(String regex) {
         return entry -> entry.getFileName().toString().matches(regex);
     }
 
-    public static AbstractFilter MAGIC_NUMBER(char... magicNumbers) {
+    public static AbstractFilter magicNumber(char... magicNumbers) {
         return entry -> {
             try (var fileReader = new FileReader(entry.toFile())) {
                 for (var magicNumber : magicNumbers) {
