@@ -29,8 +29,8 @@ public class ParserUtil {
         Matcher requestTypeMatcher = requestTypePattern.matcher(s);
         Matcher resourceMatcher = resourcePattern.matcher(s);
         Matcher responseMatcher = responsePattern.matcher(s);
-        if (!(ipMatcher.find() && dateMatcher.find() && requestTypeMatcher.find() && resourceMatcher.find() &&
-            responseMatcher.find())) {
+        if (!(ipMatcher.find() && dateMatcher.find() && requestTypeMatcher.find() && resourceMatcher.find()
+            && responseMatcher.find())) {
             LOGGER.error("'{}' does not comply with the NGINX Log Schema "
                 + "''$remote_addr - $remote_user [$time_local] ' '\"$request\" "
                 + "$status $body_bytes_sent ' '\"$http_referer\" \"$http_user_agent\"''", s);

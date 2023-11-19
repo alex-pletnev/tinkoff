@@ -18,6 +18,8 @@ import java.util.Objects;
 // then press Enter. You can now see whitespace characters in your code.
 public final class Main {
 
+    private static final int LIMIT = 3;
+
     private Main() {
     }
 
@@ -59,8 +61,8 @@ public final class Main {
         }
 
         PrintUtil.printGeneralInformation(generalInformationAnalyser);
-        PrintUtil.printRequestedResources(requestedResourcesAnalyser, 3);
-        PrintUtil.printResponseCodes(responseCodesAnalyser, 1000);
+        PrintUtil.printRequestedResources(requestedResourcesAnalyser, LIMIT);
+        PrintUtil.printResponseCodes(responseCodesAnalyser, LIMIT);
     }
 
 }

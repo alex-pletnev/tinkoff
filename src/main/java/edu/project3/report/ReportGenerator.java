@@ -38,11 +38,11 @@ public class ReportGenerator {
             printWriter.print("#### Общая информация\n");
             printWriter.print("| Метрика | Значение |\n");
             printWriter.print(MD_2TABLE_HEADER_LINE);
-            printWriter.print("|Файл(-ы)|'" + generalInformationAnalyser.getSource() + "'|\n");
-            printWriter.print("|Начальная дата|" + generalInformationAnalyser.getStartDate() + "|\n");
-            printWriter.print("|Конечная дата|" + generalInformationAnalyser.getFinishDate() + "|\n");
-            printWriter.print("|Количество запросов|" + generalInformationAnalyser.getRequestCount() + "|\n");
-            printWriter.print("|Средний размер ответа|" + generalInformationAnalyser.averageResponseSize() + "b|\n");
+            printWriter.print("| Файл(-ы) |'" + generalInformationAnalyser.getSource() + "'|\n");
+            printWriter.print("| Начальная дата |" + generalInformationAnalyser.getStartDate() + "|\n");
+            printWriter.print("| Конечная дата |" + generalInformationAnalyser.getFinishDate() + "|\n");
+            printWriter.print("| Количество запросов |" + generalInformationAnalyser.getRequestCount() + "|\n");
+            printWriter.print("| Средний размер ответа |" + generalInformationAnalyser.averageResponseSize() + "b|\n");
             printWriter.println();
             printWriter.print("#### Запрашиваемые ресурсы\n");
             printWriter.print("| Место | Ресурс | Количество |\n");
@@ -64,9 +64,9 @@ public class ReportGenerator {
             printWriter.print(MD_3TABLE_HEADER_LINE);
             var codes = responseCodesAnalyser.getMostPopularResponseCodes();
             codes.forEach(
-                code -> printWriter.print("|" + code.getKey() + "|'" +
-                    ResponseCodesAnalyser.RESPONSE_CODES_DESCRIPTION.get(code.getKey()) + "'|" + code.getValue() +
-                    "|\n")
+                code -> printWriter.print("|" + code.getKey() + "|'"
+                    + ResponseCodesAnalyser.RESPONSE_CODES_DESCRIPTION.get(code.getKey()) + "'|" + code.getValue()
+                    + "|\n")
             );
             printWriter.println();
             printWriter.flush();
@@ -110,9 +110,9 @@ public class ReportGenerator {
             printWriter.print("| Код | Имя | Количество \n");
             var codes = responseCodesAnalyser.getMostPopularResponseCodes();
             codes.forEach(
-                code -> printWriter.print("|" + code.getKey() + "|'" +
-                    ResponseCodesAnalyser.RESPONSE_CODES_DESCRIPTION.get(code.getKey()) + "'|" + code.getValue() +
-                    "\n")
+                code -> printWriter.print("|" + code.getKey() + "|'"
+                    + ResponseCodesAnalyser.RESPONSE_CODES_DESCRIPTION.get(code.getKey()) + "'|" + code.getValue()
+                    + "\n")
 
             );
             printWriter.print(ADOC_TABLE_BORDER);

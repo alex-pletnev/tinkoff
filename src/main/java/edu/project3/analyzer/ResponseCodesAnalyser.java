@@ -12,13 +12,20 @@ public class ResponseCodesAnalyser {
 
     public static final Map<Integer, String> RESPONSE_CODES_DESCRIPTION = new HashMap<>();
 
+    private static final int OK = 200;
+    private static final int PC = 206;
+    private static final int NM = 304;
+    private static final int FB = 403;
+    private static final int NF = 404;
+    private static final int RNS = 416;
+
     static {
-        RESPONSE_CODES_DESCRIPTION.put(200, "OK");
-        RESPONSE_CODES_DESCRIPTION.put(206, "Partial Content");
-        RESPONSE_CODES_DESCRIPTION.put(304, "Not Modified");
-        RESPONSE_CODES_DESCRIPTION.put(403, "Forbidden");
-        RESPONSE_CODES_DESCRIPTION.put(404, "Not Found");
-        RESPONSE_CODES_DESCRIPTION.put(416, "Range Not Satisfiable");
+        RESPONSE_CODES_DESCRIPTION.put(OK, "OK");
+        RESPONSE_CODES_DESCRIPTION.put(PC, "Partial Content");
+        RESPONSE_CODES_DESCRIPTION.put(NM, "Not Modified");
+        RESPONSE_CODES_DESCRIPTION.put(FB, "Forbidden");
+        RESPONSE_CODES_DESCRIPTION.put(NF, "Not Found");
+        RESPONSE_CODES_DESCRIPTION.put(RNS, "Range Not Satisfiable");
 
     }
 
