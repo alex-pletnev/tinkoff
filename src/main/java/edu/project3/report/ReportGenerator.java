@@ -14,6 +14,7 @@ public class ReportGenerator {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final String MD_2TABLE_HEADER_LINE = "|:---------------------:|-------------:|\n";
     private static final String MD_3TABLE_HEADER_LINE = "|:---:|:---------------------:|-----------:|\n";
+    private static final String MD_LINE_END = "|\n";
     private static final String ADOC_TABLE_BORDER = "|===\n";
 
     private static final int LIMIT = 3;
@@ -39,9 +40,9 @@ public class ReportGenerator {
             printWriter.print("| Метрика | Значение |\n");
             printWriter.print(MD_2TABLE_HEADER_LINE);
             printWriter.print("| Файл(-ы) |'" + generalInformationAnalyser.getSource() + "'|\n");
-            printWriter.print("| Начальная дата |" + generalInformationAnalyser.getStartDate() + "|\n");
-            printWriter.print("| Конечная дата |" + generalInformationAnalyser.getFinishDate() + "|\n");
-            printWriter.print("| Количество запросов |" + generalInformationAnalyser.getRequestCount() + "|\n");
+            printWriter.print("| Начальная дата |" + generalInformationAnalyser.getStartDate() + MD_LINE_END);
+            printWriter.print("| Конечная дата |" + generalInformationAnalyser.getFinishDate() + MD_LINE_END);
+            printWriter.print("| Количество запросов |" + generalInformationAnalyser.getRequestCount() + MD_LINE_END);
             printWriter.print("| Средний размер ответа |" + generalInformationAnalyser.averageResponseSize() + "b|\n");
             printWriter.println();
             printWriter.print("#### Запрашиваемые ресурсы\n");
@@ -55,7 +56,7 @@ public class ReportGenerator {
                     break;
                 }
                 index++;
-                printWriter.print("|" + tear++ + "|'" + res.getKey() + "'|" + res.getValue() + "|\n");
+                printWriter.print("|" + tear++ + "|'" + res.getKey() + "'|" + res.getValue() + MD_LINE_END);
             }
 
             printWriter.println();
@@ -66,7 +67,7 @@ public class ReportGenerator {
             codes.forEach(
                 code -> printWriter.print("|" + code.getKey() + "|'"
                     + ResponseCodesAnalyser.RESPONSE_CODES_DESCRIPTION.get(code.getKey()) + "'|" + code.getValue()
-                    + "|\n")
+                    + MD_LINE_END)
             );
             printWriter.println();
             printWriter.flush();
