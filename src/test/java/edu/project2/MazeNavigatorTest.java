@@ -9,7 +9,7 @@ class MazeNavigatorTest {
 
     @Test
     void navigateMazeSuccess() {
-        int[][] maze = {
+        int[][] mazeArr = {
             {14, 6, 5, 12, 6, 5, 12, 6, 5, 12},
             {3, 9, 14, 10, 3, 12, 10, 10, 6, 9},
             {6, 5, 8, 3, 12, 10, 10, 10, 3, 12},
@@ -20,6 +20,8 @@ class MazeNavigatorTest {
             {10, 3, 5, 5, 9, 6, 12, 3, 5, 12},
             {10, 6, 5, 12, 7, 8, 3, 5, 12, 10},
             {3, 9, 7, 1, 5, 9, 7, 5, 1, 9}};
+        var maze = new Maze(10, 10);
+        maze.setMaze(mazeArr);
 
         MazeNavigator mazeNavigator = new MazeNavigator(maze);
         int[][] actual = mazeNavigator.navigateMaze(0, 0, 4, 5);
@@ -84,7 +86,7 @@ class MazeNavigatorTest {
 
     @Test
     void navigateMazeRouteException() {
-        int[][] maze = {
+        int[][] mazeArr = {
             {14, 6, 5, 12, 6, 5, 12, 6, 5, 12},
             {3, 9, 14, 10, 3, 12, 10, 10, 6, 9},
             {6, 5, 8, 3, 12, 10, 10, 10, 3, 12},
@@ -95,7 +97,9 @@ class MazeNavigatorTest {
             {10, 3, 5, 5, 9, 6, 12, 3, 5, 12},
             {10, 6, 5, 12, 7, 8, 3, 5, 12, 10},
             {3, 9, 7, 1, 5, 9, 7, 5, 1, 9}};
-        maze[5][5] = 15;
+        mazeArr[5][5] = 15;
+        var maze = new Maze(10, 10);
+        maze.setMaze(mazeArr);
         MazeNavigator mazeNavigator = new MazeNavigator(maze);
         Assertions.assertThrows(RouteException.class, () -> {
             mazeNavigator.navigateMaze(0, 0, 4, 5);
@@ -104,7 +108,7 @@ class MazeNavigatorTest {
 
     @Test
     void navigateMazeCoordinateException() {
-        int[][] maze = {
+        int[][] mazeArr = {
             {14, 6, 5, 12, 6, 5, 12, 6, 5, 12},
             {3, 9, 14, 10, 3, 12, 10, 10, 6, 9},
             {6, 5, 8, 3, 12, 10, 10, 10, 3, 12},
@@ -115,6 +119,8 @@ class MazeNavigatorTest {
             {10, 3, 5, 5, 9, 6, 12, 3, 5, 12},
             {10, 6, 5, 12, 7, 8, 3, 5, 12, 10},
             {3, 9, 7, 1, 5, 9, 7, 5, 1, 9}};
+        var maze = new Maze(10, 10);
+        maze.setMaze(mazeArr);
         MazeNavigator mazeNavigator = new MazeNavigator(maze);
         Assertions.assertThrows(CoordinatesException.class, () -> {
             mazeNavigator.navigateMaze(0, 0, 40, 5);

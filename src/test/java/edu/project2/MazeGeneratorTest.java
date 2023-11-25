@@ -8,12 +8,12 @@ class MazeGeneratorTest {
 
     @Test
     void MazeGeneratorWithNegativeSize() {
-        Assertions.assertThrows(CoordinatesException.class, () -> new MazeGenerator(-1, 5));
+        Assertions.assertThrows(CoordinatesException.class, () -> new MazeGenerator(new Maze(-1, 5)));
     }
 
     @Test
     void MazeGeneratorWithNormalSize() {
-        new MazeGenerator(7, 5);
+        new MazeGenerator(new Maze(7, 5));
     }
 
 

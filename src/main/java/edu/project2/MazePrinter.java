@@ -9,13 +9,13 @@ public class MazePrinter {
     private static final int RIGHT_BIT = 8;
     private static final int BRICK_SIZE = 3;
     private static final int TEN = 10;
-    private final int[][] maze;
+    private final Maze maze;
     private final String[][] strMaze;
     private final Logger logger;
 
-    public MazePrinter(int[][] maze, Logger logger) {
+    public MazePrinter(Maze maze, Logger logger) {
         this.maze = maze;
-        this.strMaze = new String[maze.length * BRICK_SIZE][maze[0].length * BRICK_SIZE];
+        this.strMaze = new String[maze.getRows() * BRICK_SIZE][maze.getCols() * BRICK_SIZE];
         this.logger = logger;
     }
 
@@ -35,11 +35,11 @@ public class MazePrinter {
         initStrMaze();
         int strI = 1;
         int srtJ;
-        for (int i = 0; i < maze.length; i++) {
+        for (int i = 0; i < maze.getRows(); i++) {
             strI += i * BRICK_SIZE;
             srtJ = 1;
-            for (int j = 0; j < maze[0].length; j++) {
-                var cell = maze[i][j];
+            for (int j = 0; j < maze.getCols(); j++) {
+                var cell = maze.getCell(i, j);
                 srtJ += j * BRICK_SIZE;
                 if ((cell & BOTTOM_BIT) == BOTTOM_BIT) {
                     strMaze[strI + 1][srtJ - 1] = "██";
@@ -73,7 +73,7 @@ public class MazePrinter {
     public void printMaze() {
         StringBuilder yCoords = new StringBuilder();
         yCoords.append("      ");
-        for (int i = 0; i < maze.length; i++) {
+        for (int i = 0; i < maze.getRows(); i++) {
             yCoords.append(i).append("     ");
         }
         logger.info(yCoords);

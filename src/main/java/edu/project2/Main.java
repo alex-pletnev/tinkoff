@@ -21,9 +21,10 @@ public final class Main {
         // Press Alt+Enter with your caret at the highlighted text to see how
         // IntelliJ IDEA suggests fixing it.
 
-            MazeGenerator mazeGenerator = new MazeGenerator(ROWS, COLS);
+            Maze maze = new Maze(ROWS, COLS);
+            MazeGenerator mazeGenerator = new MazeGenerator(maze);
             mazeGenerator.generateMaze();
-            var maze = mazeGenerator.getMaze();
+
             MazePrinter mazePrinter = new MazePrinter(maze, LOGGER);
 
             MazeNavigator mazeNavigator = new MazeNavigator(maze);
@@ -34,7 +35,7 @@ public final class Main {
                 mazePrinter.printMaze();
 
             } catch (RuntimeException e) {
-                LOGGER.info("Impossible path!");
+                LOGGER.error("Impossible path!", e);
             }
 
 

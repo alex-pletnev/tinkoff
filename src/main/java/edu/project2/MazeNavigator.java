@@ -2,10 +2,12 @@ package edu.project2;
 
 import edu.project2.exceptions.CoordinatesException;
 import edu.project2.exceptions.RouteException;
+import java.util.AbstractMap;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class MazeNavigator {
@@ -16,42 +18,43 @@ public class MazeNavigator {
     private static final int X = 0;
     private static final int Y = 1;
     private static final String NO_ROUTE_FOUND = "No route found!";
-    private final int[][] maze;
+    private final Random random = new Random();
+    private final Maze maze;
     private final boolean[][] visited;
-    private final Deque<Cell> stack;
-    private final List<Cell> route;
+    private final Deque<Map.Entry<Integer, Integer>> stack;
+    private final List<Map.Entry<Integer, Integer>> route;
 
-    public MazeNavigator(int[][] maze) {
+    public MazeNavigator(Maze maze) {
         this.maze = maze;
-        this.visited = new boolean[maze.length][maze[0].length];
+        this.visited = new boolean[maze.getRows()][maze.getCols()];
         this.stack = new ArrayDeque<>();
         this.route = new ArrayList<>();
     }
 
     public int[][] navigateMaze(int x1, int y1, int x2, int y2) {
-        if (x1 < 0 || x1 >= maze.length || y1 < 0 || y1 >= maze[0].length
-            || x2 < 0 || x2 >= maze.length || y2 < 0 || y2 >= maze[0].length) {
+        if (x1 < 0 || x1 >= maze.getRows() || y1 < 0 || y1 >= maze.getCols()
+            || x2 < 0 || x2 >= maze.getRows() || y2 < 0 || y2 >= maze.getCols()) {
             throw new CoordinatesException("Coordinates must be positive!");
         }
 
-        Cell initialCell = new Cell(x1, y1);
+        Map.Entry<Integer, Integer> initialCell = new AbstractMap.SimpleEntry<>(x1, y1);
         markAsVisited(initialCell);
         stack.push(initialCell);
 
         while (!stack.isEmpty()) {
-            Cell currentCell = stack.pop();
+            Map.Entry<Integer, Integer> currentCell = stack.pop();
 
-            if (currentCell.row() == x2 && currentCell.col() == y2) {
+            if (currentCell.getKey() == x2 && currentCell.getValue() == y2) {
                 route.add(currentCell);
                 return convertRouteToArray();
             }
 
-            List<Cell> unvisitedNeighbours = getUnvisitedNeighbours(currentCell);
+            List<Map.Entry<Integer, Integer>> unvisitedNeighbours = getUnvisitedNeighbours(currentCell);
 
             if (!unvisitedNeighbours.isEmpty()) {
                 route.add(currentCell);
                 stack.push(currentCell);
-                Cell chosenCell = chooseRandomNeighbour(unvisitedNeighbours);
+                Map.Entry<Integer, Integer> chosenCell = chooseRandomNeighbour(unvisitedNeighbours);
                 markAsVisited(chosenCell);
                 stack.push(chosenCell);
             } else {
@@ -65,35 +68,34 @@ public class MazeNavigator {
         throw new RouteException(NO_ROUTE_FOUND);
     }
 
-    private void markAsVisited(Cell cell) {
-        visited[cell.row()][cell.col()] = true;
+    private void markAsVisited(Map.Entry<Integer, Integer> cell) {
+        visited[cell.getKey()][cell.getValue()] = true;
     }
 
-    private List<Cell> getUnvisitedNeighbours(Cell cell) {
-        List<Cell> neighbours = new ArrayList<>();
+    private List<Map.Entry<Integer, Integer>> getUnvisitedNeighbours(Map.Entry<Integer, Integer> cell) {
+        List<Map.Entry<Integer, Integer>> neighbours = new ArrayList<>();
 
-        if (cell.row() > 0 && !visited[cell.row() - 1][cell.col()]
-            && (maze[cell.row()][cell.col()] & TOP_BIT) == 0) {
-            neighbours.add(new Cell(cell.row() - 1, cell.col()));
+        if (cell.getKey() > 0 && !visited[cell.getKey() - 1][cell.getValue()]
+            && (maze.getCell(cell.getKey(), cell.getValue()) & TOP_BIT) == 0) {
+            neighbours.add(new AbstractMap.SimpleEntry<>(cell.getKey() - 1, cell.getValue()));
         }
-        if (cell.row() < maze.length - 1 && !visited[cell.row() + 1][cell.col()]
-            && (maze[cell.row()][cell.col()] & BOTTOM_BIT) == 0) {
-            neighbours.add(new Cell(cell.row() + 1, cell.col()));
+        if (cell.getKey() < maze.getRows() - 1 && !visited[cell.getKey() + 1][cell.getValue()]
+            && (maze.getCell(cell.getKey(), cell.getValue()) & BOTTOM_BIT) == 0) {
+            neighbours.add(new AbstractMap.SimpleEntry<>(cell.getKey() + 1, cell.getValue()));
         }
-        if (cell.col() > 0 && !visited[cell.row()][cell.col() - 1]
-            && (maze[cell.row()][cell.col()] & LEFT_BIT) == 0) {
-            neighbours.add(new Cell(cell.row(), cell.col() - 1));
+        if (cell.getValue() > 0 && !visited[cell.getKey()][cell.getValue() - 1]
+            && (maze.getCell(cell.getKey(), cell.getValue()) & LEFT_BIT) == 0) {
+            neighbours.add(new AbstractMap.SimpleEntry<>(cell.getKey(), cell.getValue() - 1));
         }
-        if (cell.col() < maze[0].length - 1 && !visited[cell.row()][cell.col() + 1]
-            && (maze[cell.row()][cell.col()] & RIGHT_BIT) == 0) {
-            neighbours.add(new Cell(cell.row(), cell.col() + 1));
+        if (cell.getValue() < maze.getCols() - 1 && !visited[cell.getKey()][cell.getValue() + 1]
+            && (maze.getCell(cell.getKey(), cell.getValue()) & RIGHT_BIT) == 0) {
+            neighbours.add(new AbstractMap.SimpleEntry<>(cell.getKey(), cell.getValue() + 1));
         }
 
         return neighbours;
     }
 
-    private Cell chooseRandomNeighbour(List<Cell> neighbours) {
-        Random random = new Random();
+    private Map.Entry<Integer, Integer> chooseRandomNeighbour(List<Map.Entry<Integer, Integer>> neighbours) {
         int index = random.nextInt(neighbours.size());
         return neighbours.get(index);
     }
@@ -101,8 +103,8 @@ public class MazeNavigator {
     private int[][] convertRouteToArray() {
         int[][] routeArray = new int[route.size()][2];
         for (int i = 0; i < route.size(); i++) {
-            routeArray[i][X] = route.get(i).row();
-            routeArray[i][Y] = route.get(i).col();
+            routeArray[i][X] = route.get(i).getKey();
+            routeArray[i][Y] = route.get(i).getValue();
         }
         return routeArray;
     }

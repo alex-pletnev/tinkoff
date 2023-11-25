@@ -9,7 +9,7 @@ class MazePrinterTest {
 
     @Test
     void printMazeToTest() {
-        int[][] maze = {
+        int[][] mazeArr = {
             {14, 6, 5, 12, 6, 5, 12, 6, 5, 12},
             {3, 9, 14, 10, 3, 12, 10, 10, 6, 9},
             {6, 5, 8, 3, 12, 10, 10, 10, 3, 12},
@@ -20,6 +20,8 @@ class MazePrinterTest {
             {10, 3, 5, 5, 9, 6, 12, 3, 5, 12},
             {10, 6, 5, 12, 7, 8, 3, 5, 12, 10},
             {3, 9, 7, 1, 5, 9, 7, 5, 1, 9}};
+        var maze = new Maze(10, 10);
+        maze.setMaze(mazeArr);
         MazePrinter mazePrinter = new MazePrinter(maze, LogManager.getLogger());
         var actual = mazePrinter.fillStrMaze();
 
