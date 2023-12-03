@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class FibonacciCounter {
+    private static final int SLEEP_MS = 100;
     private static final Logger LOGGER = LogManager.getLogger();
     private final int numThreads;
 
@@ -33,7 +34,7 @@ public class FibonacciCounter {
 
         while (counter.get() < n) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(SLEEP_MS);
             } catch (InterruptedException e) {
                 LOGGER.error(e);
             }
@@ -42,7 +43,7 @@ public class FibonacciCounter {
         try {
             fixedThreadPool.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         ans.sort(Comparator.naturalOrder());
         return ans;

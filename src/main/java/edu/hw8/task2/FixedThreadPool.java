@@ -25,9 +25,9 @@ public class FixedThreadPool implements ThreadPool {
 
     @Override
     public void execute(Runnable runnable) {
-        for (Thread thread : threads) {
-            thread = new Thread(runnable);
-            thread.start();
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(runnable);
+            threads[i].start();
             return;
         }
         LOGGER.info("All threads are busy. Task cannot be executed.");
