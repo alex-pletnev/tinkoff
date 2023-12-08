@@ -3,10 +3,10 @@ package edu.project2;
 import org.apache.logging.log4j.Logger;
 
 public class MazePrinter {
-    private static final int BOTTOM_BIT = 1;
-    private static final int LEFT_BIT = 2;
-    private static final int TOP_BIT = 4;
-    private static final int RIGHT_BIT = 8;
+    private static final int BOTTOM_BIT = 0b0001;
+    private static final int LEFT_BIT = 0b0010;
+    private static final int TOP_BIT = 0b0100;
+    private static final int RIGHT_BIT = 0b1000;
     private static final int BRICK_SIZE = 3;
     private static final int TEN = 10;
     private final Maze maze;
@@ -17,6 +17,15 @@ public class MazePrinter {
         this.maze = maze;
         this.strMaze = new String[maze.getRows() * BRICK_SIZE][maze.getCols() * BRICK_SIZE];
         this.logger = logger;
+    }
+
+    public MazePrinter(Maze maze, Logger logger, int[][] path) {
+        this.maze = maze;
+        this.strMaze = new String[maze.getRows() * BRICK_SIZE][maze.getCols() * BRICK_SIZE];
+        this.logger = logger;
+        fillStrMaze();
+        addPath(path);
+
     }
 
     private void initStrMaze() {
