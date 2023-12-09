@@ -19,7 +19,7 @@ public class StatsCollector {
 
     public StatsCollector() {
         this.data = new ConcurrentHashMap<>();
-        this.executor = Executors.newFixedThreadPool(5);
+        this.executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     }
 
     public void push(String metricName, double[] values) {

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Predicate;
@@ -105,6 +106,7 @@ class Task2Test {
             result = forkJoinPool.invoke(searchFilesWithPredicate);
         }
 
+        result.sort(Comparator.naturalOrder());
         assertEquals(excepted, result);
     }
 
