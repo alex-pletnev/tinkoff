@@ -41,8 +41,8 @@ public class RenderUtil {
             pw = affineTransformation.apply(pw);
             pw = transformation.apply(pw);
             if (i >= 0) {
-                double theta2 = 0.0;
-                subIteration(canvas, rect, symmetry, pw, color, theta2);
+
+                subIteration(canvas, rect, symmetry, pw, color);
                 if (!Objects.isNull(countDownLatch)) {
                     countDownLatch.countDown();
                 }
@@ -56,9 +56,9 @@ public class RenderUtil {
         Rect rect,
         int symmetry,
         Point pw,
-        Color color,
-        double theta2
+        Color color
     ) {
+        double theta2 = 0.0;
         for (int s = 0; s < symmetry; theta2 += Math.PI * 2 / symmetry, ++s) {
             Rotation rotation = new Rotation(theta2);
             var pwr = rotation.apply(pw);

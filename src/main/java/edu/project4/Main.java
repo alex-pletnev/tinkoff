@@ -14,11 +14,11 @@ import edu.project4.transfom.fractal.Heart;
 import edu.project4.transfom.fractal.Polar;
 import edu.project4.transfom.fractal.Sinusoidal;
 import edu.project4.transfom.fractal.Spherical;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Main {
 

@@ -1,11 +1,11 @@
 package edu.project4.file;
 
 import edu.project4.entity.FractalImage;
-import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
+import javax.imageio.ImageIO;
 
 public class ImageUtils {
 
