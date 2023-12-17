@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CacheProxy implements InvocationHandler {
+    private static final String SEPARATOR = " = ";
     private static final String URL = "src/main/resources/cache.txt";
     private static final Logger LOGGER = LogManager.getLogger();
     private final Object target;
@@ -75,8 +76,8 @@ public class CacheProxy implements InvocationHandler {
         try (Scanner scanner = new Scanner(path)) {
             while (scanner.hasNext()) {
                 var newLine = scanner.nextLine();
-                var splitLine = newLine.split(" = ");
-                cache.put(splitLine[0], Long.parseLong(splitLine[1]));
+                var splitLine = newLine.split(SEPARATOR);
+                cache.put(splitLine[0], Integer.parseInt(splitLine[1]));
                 LOGGER.info("'{}' read from {}", newLine, path);
             }
         }
@@ -88,7 +89,7 @@ public class CacheProxy implements InvocationHandler {
             StandardOpenOption.APPEND,
             StandardOpenOption.CREATE
         )) {
-            var newLine = key + " = " + result;
+            var newLine = key + SEPARATOR + result;
             writer.write(newLine + "\n");
             writer.flush();
             LOGGER.info("'{}' write to {}", newLine, path);

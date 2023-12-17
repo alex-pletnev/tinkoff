@@ -64,11 +64,11 @@ public class MyClass {
     }
 
     @Override public String toString() {
-        return "MyClass{" +
-            "fieldMax=" + fieldMax +
-            ", fieldMin=" + fieldMin +
-            ", fieldNotNull='" + fieldNotNull + '\'' +
-            ", justField='" + justField + '\'' +
-            '}';
+        return "MyClass{"
+            + "fieldMax=" + fieldMax
+            + ", fieldMin=" + fieldMin
+            + ", fieldNotNull='" + fieldNotNull + '\''
+            + ", justField='" + justField + '\''
+            + '}';
     }
 }

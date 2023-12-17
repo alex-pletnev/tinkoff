@@ -5,11 +5,11 @@ import edu.hw10.task1.anotation.Min;
 import edu.hw10.task1.anotation.NotNull;
 import edu.hw10.task1.exception.InvalidMaxException;
 import edu.hw10.task1.exception.InvalidMinException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import java.lang.annotation.Annotation;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class StringGenerator implements Generator<String> {
     private static final Logger LOGGER = LogManager.getLogger();

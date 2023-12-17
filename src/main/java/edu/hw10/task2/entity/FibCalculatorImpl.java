@@ -3,12 +3,12 @@ package edu.hw10.task2.entity;
 public class FibCalculatorImpl implements FibCalculator {
 
     @Override
-    public long fib(int number) {
+    public int fib(int number) {
         if (number < 0) {
             throw new IllegalArgumentException("Number must be non-negative");
         }
 
-        long result;
+        int result;
         if (number == 0 || number == 1) {
             result = number;
         } else {
