@@ -1,0 +1,7 @@
+fib(5) = 5
+fib(6) = 8
+fib(7) = 13
+add(2, 2) = 4
+subtract(2, 2) = 0
+multiply(2, 2) = 4
+divide(2, 2) = 1
