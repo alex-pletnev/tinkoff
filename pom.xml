@@ -155,6 +155,9 @@
                         <release>${java.release}</release>
                         <parameters>true</parameters>
                         <compilerArgument>-Xlint:all</compilerArgument>
+                        <compilerArgs>
+                            <arg>-XX:+EnableDynamicAgentLoading</arg>
+                        </compilerArgs>
                     </configuration>
                 </plugin>
                 <plugin>
