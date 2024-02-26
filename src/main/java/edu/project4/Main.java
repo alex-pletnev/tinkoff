@@ -23,8 +23,8 @@ import org.apache.logging.log4j.Logger;
 public class Main {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final int WIDTH = 1920;
-    private static final int HEIGHT = 1080;
+    private static final int WIDTH = 2560;
+    private static final int HEIGHT = 1440;
     private static final int X = -4;
     private static final int Y = -3;
     private static final int RECT_WIDTH = 8;
